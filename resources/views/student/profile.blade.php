@@ -164,10 +164,10 @@
                                 <div class="card-block">
                                     <h6 class="m-b-20 p-b-5 b-b-default f-w-600">اطلاعات شخصی</h6>
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600">Email</p>
-                                            <h6 class="text-muted f-w-400">{{$user->email}}</h6>
-                                        </div>
+{{--                                        <div class="col-sm-6">--}}
+{{--                                            <p class="m-b-10 f-w-600">Email</p>--}}
+{{--                                            <h6 class="text-muted f-w-400">{{$user->email}}</h6>--}}
+{{--                                        </div>--}}
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">نام و نام خانوادگی</p>
                                             <h6 class="text-muted f-w-400">{{$user->name}}</h6>
@@ -191,6 +191,16 @@
                                                 @endif
 
                                             </h6>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <p class="m-b-10 f-w-600"> شماره تلفن شما</p>
+                                            <h6 class="text-muted f-w-400">
+                                                {{\Illuminate\Support\Facades\Auth::user()->phoneNumber}}
+                                            </h6>
+                                            <form action="/admin/changeUserPhoneNumber" method="get">
+                                                <button class="btn btn-info">تغییر</button>
+                                            </form>
                                         </div>
 
                                         {{--                                        <div class="col-sm-6">--}}

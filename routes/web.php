@@ -96,6 +96,8 @@ Route::middleware('auth')->group(function () {
                 $data = \App\Models\UserStar::with('user')->get();
                 return view('admin.userStar.index', compact('data'));
             })->name('user.star');
+            Route::get('changeUserPhoneNumber', [\App\Http\Controllers\admin\UserController::class, 'showChangePhoneNumberPage']);
+            Route::post('changePhoneNumber', [\App\Http\Controllers\admin\UserController::class, 'changePhoneNumber'])->name('change.number');
             Route::resource('pdf', \App\Http\Controllers\admin\PdfController::class);
             Route::resource('plan', \App\Http\Controllers\admin\PlanController::class);
             Route::resource('user', \App\Http\Controllers\admin\UserController::class);

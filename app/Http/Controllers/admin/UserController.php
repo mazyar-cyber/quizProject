@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\changePhoneNumberRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserEditRequest;
 use App\Models\Tests;
@@ -120,6 +121,22 @@ class UserController extends Controller
         $user->photo_path = $filename;
         $user->save();
         //end uploading part
+        return redirect()->back();
+    }
+
+
+    public function showChangePhoneNumberPage()
+    {
+        $user = Auth::user();
+        return view('admin.users.editPhoneNumber', compact('user'));
+    }
+
+    public function changePhoneNumber(changePhoneNumberRequest $request)
+    {
+        $user = User::find(Auth::id());
+        $user->phoneNumber = $request->phoneNumber;
+        $user->save();
+        \Illuminate\Support\Facades\Session::flash('user-edit', "شماره تلفن شما با موفقیت ویرایش شد!");
         return redirect()->back();
     }
 }
