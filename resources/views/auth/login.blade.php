@@ -23,7 +23,7 @@
 <div class="main">
 
     <!-- Sing in  Form -->
-    <section class="sign-in">
+    <section class="sign-in" dir="rtl">
         <div class="container">
             <div class="signin-content">
                 <div class="signin-image">
@@ -40,10 +40,10 @@
                     <form method="POST" action="{{ route('login') }}" class="register-form" id="login-form">
                         @csrf
                         <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="email" name="email" id="your_name" required autofocus
-                                   placeholder="ایمیل خود را وارد کنید"/>
-                            @error('email')
+                            <label for="phoneNumber"><i class="zmdi zmdi-phone material-icons-name"></i></label>
+                            <input type="number " name="phoneNumber" id="your_name" required autofocus
+                                   placeholder="شماره تلفن خود را وارد کنید"/>
+                            @error('phoneNumber')
                             <span class="bg bg-danger">{{$message}}</span>
                             @enderror
                         </div>
@@ -65,7 +65,7 @@
                                 خاطر بسپار</label>
                         </div>
                         <div class="form-group form-button">
-                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="ورود"/>
                         </div>
                     </form>
 

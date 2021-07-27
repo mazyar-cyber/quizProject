@@ -135,6 +135,7 @@ class UserController extends Controller
     {
         $user = User::find(Auth::id());
         $user->phoneNumber = $request->phoneNumber;
+        $user->phone_number_verify = null;
         $user->save();
         \Illuminate\Support\Facades\Session::flash('user-edit', "شماره تلفن شما با موفقیت ویرایش شد!");
         return redirect()->back();

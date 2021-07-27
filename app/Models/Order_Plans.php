@@ -18,4 +18,10 @@ class Order_Plans extends Model
     {
         return $this->belongsTo(Plans::class, 'plan_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+
+    }
 }

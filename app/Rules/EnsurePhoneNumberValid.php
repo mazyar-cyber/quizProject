@@ -5,19 +5,19 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
-class EnsureEmailValid implements Rule
+class EnsurePhoneNumberValid implements Rule
 {
 
-    protected $email;
+    protected $phoneNumber;
 
     /**
      * Create a new rule instance.
      *
      * @param $email
      */
-    public function __construct($email)
+    public function __construct($number)
     {
-        $this->email = $email;
+        $this->phoneNumber = $number;
     }
 
     /**
@@ -29,7 +29,7 @@ class EnsureEmailValid implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $this->email == Auth::user()->email;
+        return $this->phoneNumber == Auth::user()->phoneNumber;
     }
 
     /**
@@ -39,6 +39,6 @@ class EnsureEmailValid implements Rule
      */
     public function message()
     {
-        return 'آدرس ایمیل اشتباه است';
+        return 'شماره تلفن را  اشتباه وارد کرده اید';
     }
 }

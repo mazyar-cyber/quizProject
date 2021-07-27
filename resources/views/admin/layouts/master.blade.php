@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="/js/spin/main.css" type="text/css"/>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="/js/spin/Winwheel.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="{{asset('/js/spin/TweenMax.min.js')}}"></script>
+    {{--    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>--}}
     {{--    spin script and css--}}
 
     {{--    tiny editor cdn--}}
@@ -112,9 +113,9 @@
             </a>
 
 
-            <a href="/logout" class="btn hidden-xs"
-               style="margin:6px 100px;padding:9px 50px;background-color:#d61577;border-color:#ad0b5d;font-weight:bold;color:#FFF">
-                خروج از حساب کاربری</a>
+            {{--            <a href="/logout" class="btn hidden-xs"--}}
+            {{--               style="margin:6px 100px;padding:9px 50px;background-color:#d61577;border-color:#ad0b5d;font-weight:bold;color:#FFF">--}}
+            {{--                خروج از حساب کاربری</a>--}}
 
 
             <div class="navbar-custom-menu">
@@ -149,37 +150,16 @@
                             <i class="bg-purple-active fa fa-file-video-o"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            {{--                            <li class="bg-purple-gradient"><a href="/video">ویدیو ها</a></li>--}}
-{{--                            <button id="myBtn" class="btn btn-info">آخرین ویدیو</button>--}}
+                        {{--                            <li class="bg-purple-gradient"><a href="/video">ویدیو ها</a></li>--}}
+                        {{--                            <button id="myBtn" class="btn btn-info">آخرین ویدیو</button>--}}
 
 
-                            @if(\Illuminate\Support\Facades\Auth::user()->is_teacher == '1')
+                        @if(\Illuminate\Support\Facades\Auth::user()->is_teacher == '1')
                             <!-- The Modal -->
                                 <div id="myModal" class="modal">
 
+                                @if(\App\Models\Links::latest()->first())
                                     <!-- Modal content -->
-                                    <div class="modal-content" style="background-color: rgba(27,48,43,0.45)">
-                                        <center>
-                                        <span class="close"><span class="fa fa-window-close"
-                                                                  style="color: darkred"></span></span>
-
-                                            <p>{{\App\Models\Links::latest()->first()->title}}</p>
-                                            <video width="720" height="540" autoplay controls>
-                                                <source
-                                                    src="{{\App\Models\Links::latest()->first()->link}}">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        </center>
-                                    </div>
-                                </div>
-                                <!-- The Modal -->
-
-                            @else
-                                @if(\Carbon\Carbon::now()->diffInDays(\Illuminate\Support\Facades\Auth::user()->created_at) <= 7)
-                                <!-- The Modal -->
-                                    <div id="myModal" class="modal">
-
-                                        <!-- Modal content -->
                                         <div class="modal-content" style="background-color: rgba(27,48,43,0.45)">
                                             <center>
                                         <span class="close"><span class="fa fa-window-close"
@@ -193,8 +173,33 @@
                                                 </video>
                                             </center>
                                         </div>
+                                </div>
+                                <!-- The Modal -->
+                        @endif
+
+                        @else
+                            @if(\Carbon\Carbon::now()->diffInDays(\Illuminate\Support\Facades\Auth::user()->created_at) <= 7)
+                                <!-- The Modal -->
+                                    <div id="myModal" class="modal">
+
+                                    @if(\App\Models\Links::latest()->first())
+                                        <!-- Modal content -->
+                                            <div class="modal-content" style="background-color: rgba(27,48,43,0.45)">
+                                                <center>
+                                        <span class="close"><span class="fa fa-window-close"
+                                                                  style="color: darkred"></span></span>
+
+                                                    <p>{{\App\Models\Links::latest()->first()->title}}</p>
+                                                    <video width="720" height="540" autoplay controls>
+                                                        <source
+                                                            src="{{\App\Models\Links::latest()->first()->link}}">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                </center>
+                                            </div>
                                     </div>
                                     <!-- The Modal -->
+                                @endif
                                 @else
                                     @if(count(\App\Models\UserPlans::where('user_id', \Illuminate\Support\Facades\Auth::id())->get()) == 0)
                                         <div style="color: red;background-color: yellow">شما حق دسترسی به این قسمت را
@@ -228,9 +233,9 @@
                                         <div style="color: red;background-color: yellow">شما حق دسترسی به این قسمت را
                                             ندارید(بدلیل اتمام اعتبار اشتراک)
                                         </div>
+                                    @endif
                                 @endif
                             @endif
-                        @endif
 
                         </ul>
                     </li>
@@ -282,10 +287,15 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- Control Sidebar Toggle Button -->
-                    <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>
+
+                    {{--                    <li class="dropdown">--}}
+                    {{--                        <a href="/logout" data-toggle="control-sidebar"><i class="fa fa-power-off"></i></a>--}}
+                    {{--                        <ul class="dropdown-menu">--}}
+
+                    {{--                            <li class="footer"><a href="/spin">چرخ گردون</a></li>--}}
+                    {{--                        </ul>--}}
+                    {{--                    </li>--}}
+
                 </ul>
             </div>
         </nav>
@@ -385,6 +395,21 @@
                                 </a></li>
                         </ul>
                     </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa  fa-first-order"></i>
+                            <span>تراکنش ها</span>
+                            <span class="pull-left-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('order.index')}}"><i class="fa fa-th-list"></i> لیست تراکنش ها
+                                </a></li>
+                        </ul>
+                    </li>
+
                 @endif
                 <li class="treeview">
                     <a href="#">
@@ -634,194 +659,7 @@
     </footer>
 
     <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Create the tabs -->
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <!-- Home tab content -->
-            <div class="tab-pane" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">فعالیت ها</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">تولد غلوم</h4>
-
-                                <p>۲۴ مرداد</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">آپدیت پروفایل سجاد</h4>
-
-                                <p>تلفن جدید (800)555-1234</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">نورا به خبرنامه پیوست</h4>
-
-                                <p>nora@example.com</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">کرون جابز اجرا شد</h4>
-
-                                <p>۵ ثانیه پیش</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-                <h3 class="control-sidebar-heading">پیشرفت کارها</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                ساخت پوستر های تبلیغاتی
-                                <span class="label label-danger pull-left">70%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                آپدیت رزومه
-                                <span class="label label-success pull-left">95%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                آپدیت لاراول
-                                <span class="label label-warning pull-left">50%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                بخش پشتیبانی سایت
-                                <span class="label label-primary pull-left">68%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-            </div>
-            <!-- /.tab-pane -->
-            <!-- Stats tab content -->
-            <div class="tab-pane" id="control-sidebar-stats-tab">وضعیت</div>
-            <!-- /.tab-pane -->
-            <!-- Settings tab content -->
-            <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">تنظیمات عمومی</h3>
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            گزارش کنترلر پنل
-                            <input type="checkbox" class="pull-left" checked>
-                        </label>
-
-                        <p>
-                            ثبت تمامی فعالیت های مدیران
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            ایمیل مارکتینگ
-                            <input type="checkbox" class="pull-left" checked>
-                        </label>
-
-                        <p>
-                            اجازه به کاربران برای ارسال ایمیل
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            در دست تعمیرات
-                            <input type="checkbox" class="pull-left" checked>
-                        </label>
-
-                        <p>
-                            قرار دادن سایت در حالت در دست تعمیرات
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <h3 class="control-sidebar-heading">تنظیمات گفتگوها</h3>
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            آنلاین بودن من را نشان نده
-                            <input type="checkbox" class="pull-left" checked>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            اعلان ها
-                            <input type="checkbox" class="pull-left">
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            حذف تاریخته گفتگوهای من
-                            <a href="javascript:void(0)" class="text-red pull-left"><i class="fa fa-trash-o"></i></a>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-                </form>
-            </div>
-            <!-- /.tab-pane -->
-        </div>
-    </aside>
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->

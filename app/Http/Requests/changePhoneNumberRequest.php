@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\EnsureEmailValid;
+use App\Rules\EnsurePhoneNumberValid;
 use App\Rules\EqueNumberOFQuestion;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +28,7 @@ class changePhoneNumberRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email', new EnsureEmailValid($this->input('email'))],
+            'oldPhoneNumber' => ['required', new EnsurePhoneNumberValid($this->input('oldPhoneNumber'))],
             'phoneNumber' => ['required', 'numeric', 'unique:users'],
         ];
     }

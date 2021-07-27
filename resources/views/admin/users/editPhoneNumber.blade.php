@@ -14,7 +14,7 @@
                 @endif
                 @if($errors->all())
                     <div class="alert alert-danger">
-                         ویرایش نشد(خطاها را بررسی کنید)
+                        ویرایش نشد(خطاها را بررسی کنید)
                     </div>
                 @endif
                 <a class="btn  pull-left" href="{{route('user.index')}}">
@@ -30,16 +30,17 @@
                   action="{{route('change.number')}}">
                 @csrf
                 <div class="form-group">
-                    <label>ایمیل خود را بنویسید</label>
-                    <input type="email" name="email" class="form-control" required>
-                    @error('email')
+                    <label>شماره تلفن فعلی خود را بنویسید</label>
+                    <input type="number" name="oldPhoneNumber" class="form-control" required>
+                    @error('oldPhoneNumber')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1"> شماره تلفن جدید:</label>
-                    <input type="number" name="phoneNumber" class="form-control" placeholder="مثال:09220000000" required>
+                    <input type="number" name="phoneNumber" class="form-control" placeholder="مثال:09220000000"
+                           required>
                     @error('phoneNumber')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

@@ -64,13 +64,16 @@ Route::get('test', function () {
 //    }
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'smsVerify'])->group(function () {
     Route::get('/', function () {
         return view('guide.index');
     });
     Route::get('/homePage/{id}', function ($id = null) {
         return view('guide.index', compact('id'));
     });
+    Route::get('changeUserPhoneNumber', [\App\Http\Controllers\admin\UserController::class, 'showChangePhoneNumberPage']);
+    Route::post('changePhoneNumber', [\App\Http\Controllers\admin\UserController::class, 'changePhoneNumber'])->name('change.number');
+
 
     Route::get('/spin', function () {
         if ($modelExistence = UserStar::where('user_id', Auth::id())->first()) {
@@ -96,8 +99,7 @@ Route::middleware('auth')->group(function () {
                 $data = \App\Models\UserStar::with('user')->get();
                 return view('admin.userStar.index', compact('data'));
             })->name('user.star');
-            Route::get('changeUserPhoneNumber', [\App\Http\Controllers\admin\UserController::class, 'showChangePhoneNumberPage']);
-            Route::post('changePhoneNumber', [\App\Http\Controllers\admin\UserController::class, 'changePhoneNumber'])->name('change.number');
+            Route::get('order', [\App\Http\Controllers\admin\OrderController::class, 'index'])->name('order.index');
             Route::resource('pdf', \App\Http\Controllers\admin\PdfController::class);
             Route::resource('plan', \App\Http\Controllers\admin\PlanController::class);
             Route::resource('user', \App\Http\Controllers\admin\UserController::class);
@@ -139,8 +141,8 @@ Route::middleware('auth')->group(function () {
 
 
 Route::post('/sendingVerificationCode', [\App\Http\Controllers\sms\smsVerificationController::class, 'send']);
-
-
+Route::get('/smsVerifyNumber', [\App\Http\Controllers\sms\SmsVerificationController::class, 'show'])->middleware('auth');
+Route::post('checkSmsCode', [\App\Http\Controllers\sms\SmsVerificationController::class, 'check'])->name('check.sms');
 Route::get('/logout', function () {
     \Illuminate\Support\Facades\Auth::logout();
     return redirect()->to('/');

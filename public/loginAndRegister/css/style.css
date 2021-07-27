@@ -1,6 +1,11 @@
+@font-face {
+    font-family: myFont;
+    src: url("../fonts/B Helal.TTF");
+}
+
 .myfont {
-    font-family: Tahoma;
-    font-size: x-large;
+    font-family: myFont;
+    font-size: xx-large;
 }
 
 /* @extend display-flex; */

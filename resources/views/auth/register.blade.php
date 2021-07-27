@@ -39,14 +39,6 @@
                             <span class="form-control bg bg-danger"><strong>{{ $message }}</strong></span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" class="@error('email') is-invalid @enderror" name="email" id="email"
-                                   placeholder="ایمیل شما" value="{{ old('email') }}" required autocomplete="email"/>
-                            @error('email')
-                            <span class="form-control bg bg-danger"><strong>{{ $message }}</strong></span>
-                            @enderror
-                        </div>
 
                         <div class="form-group">
                             <label for="phoneNumber"><i class="zmdi zmdi-phone"></i></label>
@@ -72,7 +64,7 @@
                         </div>
 
                         <div class="form-group form-button">
-                            <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                            <input type="submit" name="signup" id="signup" class="form-submit" value="ثبت نام"/>
                         </div>
                     </form>
                 </div>

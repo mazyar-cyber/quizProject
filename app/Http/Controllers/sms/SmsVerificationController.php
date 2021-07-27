@@ -43,5 +43,38 @@ class SmsVerificationController extends Controller
         return redirect()->to('/password/reset');
     }
 
+    public function show()
+    {
+
+        $user = \App\Models\User::find(Auth::id());
+        if ($user->phone_number_verify) {
+            return redirect()->to('/');
+        }
+        $token = env('KaveNegarApiToken');
+        $receptor = $user->phoneNumber;
+        $code = rand(10000000, 99999999);
+        $url = "https://api.kavenegar.com/v1/" . $token . "/verify/lookup.json?receptor=" . $receptor . "&token=" . "$code" . "&template=verifySms";
+        $response = Http::get($url);
+        $user->ValidationCodeSent = $code;
+        $user->save();
+        return view('sms.verify');
+    }
+
+    public function check(Request $request)
+    {
+        $code = $request->code;
+        if ($code == Auth::user()->ValidationCodeSent) {
+            $user = \App\Models\User::find(Auth::id());
+            $user->phone_number_verify = 'true';
+            $user->save();
+            \Illuminate\Support\Facades\Session::flash('validation-Success', "اعتبار سنجی شما با موفقیت انجام شد!");
+            return redirect()->to('/');
+        } else {
+            \Illuminate\Support\Facades\Session::flash('validation-danger', "اعتبار سنجی شما انجام نشد!");
+            return redirect()->back();
+        }
+
+    }
+
 
 }

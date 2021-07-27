@@ -21,7 +21,7 @@ class SmsVerification
         if (User::find(Auth::id())->phone_number_verify != null) {
             return $next($request);
         } else {
-            return redirect()->route("password.request");
+            return redirect()->to("/smsVerifyNumber");
         }
     }
 }

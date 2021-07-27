@@ -164,10 +164,10 @@
                                 <div class="card-block">
                                     <h6 class="m-b-20 p-b-5 b-b-default f-w-600">اطلاعات شخصی</h6>
                                     <div class="row">
-{{--                                        <div class="col-sm-6">--}}
-{{--                                            <p class="m-b-10 f-w-600">Email</p>--}}
-{{--                                            <h6 class="text-muted f-w-400">{{$user->email}}</h6>--}}
-{{--                                        </div>--}}
+                                        {{--                                        <div class="col-sm-6">--}}
+                                        {{--                                            <p class="m-b-10 f-w-600">Email</p>--}}
+                                        {{--                                            <h6 class="text-muted f-w-400">{{$user->email}}</h6>--}}
+                                        {{--                                        </div>--}}
                                         <div class="col-sm-6">
                                             <p class="m-b-10 f-w-600">نام و نام خانوادگی</p>
                                             <h6 class="text-muted f-w-400">{{$user->name}}</h6>
@@ -194,24 +194,14 @@
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <p class="m-b-10 f-w-600"> شماره تلفن شما</p>
-                                            <h6 class="text-muted f-w-400">
-                                                {{\Illuminate\Support\Facades\Auth::user()->phoneNumber}}
-                                            </h6>
-                                            <form action="/admin/changeUserPhoneNumber" method="get">
+                                            <p class="m-b-10 f-w-600"> تغییر شماره تلفن شما</p>
+                                            {{--                                            <h6 class="text-muted f-w-400">--}}
+                                            {{--                                                {{\Illuminate\Support\Facades\Auth::user()->phoneNumber}}--}}
+                                            {{--                                            </h6>--}}
+                                            <form action="/changeUserPhoneNumber" method="get">
                                                 <button class="btn btn-info">تغییر</button>
                                             </form>
                                         </div>
-
-                                        {{--                                        <div class="col-sm-6">--}}
-                                        {{--                                            <p class="m-b-10 f-w-600">عکس</p>--}}
-                                        {{--                                            <form action="{{route('user.profile.photo')}}" method="post"--}}
-                                        {{--                                                  enctype="multipart/form-data">--}}
-                                        {{--                                                @csrf--}}
-                                        {{--                                                <input type="file" name="pic" class="form-control">--}}
-                                        {{--                                                <input type="submit" value="ارسال" class="btn btn-info">--}}
-                                        {{--                                            </form>--}}
-                                        {{--                                        </div>--}}
 
                                     </div>
                                     <ul class="social-link list-unstyled m-t-40 m-b-10">
