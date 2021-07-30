@@ -91,7 +91,12 @@
     {{--    toaster--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    {{--toaster--}}
+{{--toaster--}}
+
+<!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -410,6 +415,26 @@
                         </ul>
                     </li>
 
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa  fa-bullhorn"></i>
+                            <span>اطلاعیه ها </span>
+                            <span class="pull-left-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('guide.create')}}"><i class="fa fa-th-list"></i>ایجاد راهنمایی برای
+                                    صفحه ی اصلی
+                                </a></li>
+
+                            <li><a href="{{route('guide.createSpin')}}"><i class="fa fa-th-list"></i>ایجاد راهنمایی چرخ
+                                    گردون</a></li>
+                        </ul>
+                    </li>
+
+
+
                 @endif
                 <li class="treeview">
                     <a href="#">
@@ -602,7 +627,7 @@
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i
+                            <a href="/admin/user" class="small-box-footer">اطلاعات بیشتر <i
                                     class="fa fa-arrow-circle-left"></i></a>
                         </div>
                     </div>
@@ -652,13 +677,13 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer text-left">
-        <strong>طراحی و توسعه داده شده توسط <a
-                href="https://msng.link/o/?Ofogherah_Company=tg">افق
-                راه</a></strong>
-    </footer>
+{{--    <footer class="main-footer text-left">--}}
+{{--        <strong>طراحی و توسعه داده شده توسط <a--}}
+{{--                href="https://msng.link/o/?Ofogherah_Company=tg">افق--}}
+{{--                راه</a></strong>--}}
+{{--    </footer>--}}
 
-    <!-- Control Sidebar -->
+<!-- Control Sidebar -->
 
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
@@ -668,9 +693,9 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button);
@@ -747,5 +772,6 @@
 </script>
 <script src="{{asset('js/app.js')}}"></script>
 @yield('script')
+
 </body>
 </html>

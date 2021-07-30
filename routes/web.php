@@ -95,6 +95,9 @@ Route::middleware(['auth', 'smsVerify'])->group(function () {
     });
     Route::middleware('isTeacher')->group(function () {
         Route::prefix('/admin')->group(function () {
+            Route::resource('guide', \App\Http\Controllers\admin\GuideController::class);
+            Route::get('/guideSpinner', [\App\Http\Controllers\admin\GuideController::class, 'createSpinGuide'])->name('guide.createSpin');
+            Route::post('/guideSpinner', [\App\Http\Controllers\admin\GuideController::class, 'storeSpinnerGuide'])->name('guide.storeSpin');
             Route::get('userStar', function () {
                 $data = \App\Models\UserStar::with('user')->get();
                 return view('admin.userStar.index', compact('data'));
@@ -120,6 +123,7 @@ Route::middleware(['auth', 'smsVerify'])->group(function () {
             Route::post('lessonDeleteSelected', [\App\Http\Controllers\admin\LessonController::class, 'deleteSelected'])->name('lesson.selectedDel');
             Route::get('/testResult', [\App\Http\Controllers\admin\TestContrller::class, 'showResult'])->name('testResult');
         });
+
         Route::prefix('/api')->group(function () {
             Route::get('getTestTime/{id}', [\App\Http\Controllers\admin\TestContrller::class, 'getStartTimeApi']);
             Route::get('getResults/{sort}', [\App\Http\Controllers\admin\TestContrller::class, 'showResultApi']);
@@ -140,7 +144,7 @@ Route::middleware(['auth', 'smsVerify'])->group(function () {
 });
 
 
-Route::post('/sendingVerificationCode', [\App\Http\Controllers\sms\smsVerificationController::class, 'send']);
+Route::post('/sendingVerificationCode', [\App\Http\Controllers\sms\SmsVerificationController::class, 'send']);
 Route::get('/smsVerifyNumber', [\App\Http\Controllers\sms\SmsVerificationController::class, 'show'])->middleware('auth');
 Route::post('checkSmsCode', [\App\Http\Controllers\sms\SmsVerificationController::class, 'check'])->name('check.sms');
 Route::get('/logout', function () {

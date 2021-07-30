@@ -4,12 +4,17 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title"> ویرایش کاربر <span
-                        style="font-weight: bolder">{!! $user->email!!}</span>
+                        style="font-weight: bolder">{!! $user->name!!}</span>
                 </h3>
 
                 @if (\Illuminate\Support\Facades\Session::has('user-edit'))
                     <div class="alert alert-success">
                         {{session('user-edit')}}
+                    </div>
+                @endif
+                @if (\Illuminate\Support\Facades\Session::has('user-update'))
+                    <div class="alert alert-success">
+                        {{session('user-update')}}
                     </div>
                 @endif
                 @if($errors->all())
@@ -41,16 +46,29 @@
 
 
                 <div class="form-group">
-                    <label>ایمیل کاربر را میتوانید تغییر دهید</label>
-                    <input type="email" name="email" class="form-control" value="{{$user->email}}" required>
-                    @error('email')
+                    <label>شماره تلفن کاربر را بنوسید (نام کاربری)</label>
+                    <input type="number" name="phoneNumber" class="form-control" value="{{$user->phoneNumber}}"
+                           required>
+                    @error('phoneNumber')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+
+                <div class="form-group">
+                    <label>سطح دسترسی</label>
+                    <select name="is_Teacher" class="form-control">
+                        <option @if($user->is_teacher=='0') selected @endif value="0">کاربر عادی</option>
+                        <option @if($user->is_teacher=='1') selected @endif value="1">ادمین</option>
+                    </select>
+                    @error('is_Teacher')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputEmail1"> رمز عبور:</label>
-                    <input type="password" name="password" class="form-control"  required>
+                    <input type="password" name="password" class="form-control" required>
                     @error('password')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

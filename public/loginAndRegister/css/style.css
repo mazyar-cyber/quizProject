@@ -3,9 +3,9 @@
     src: url("../fonts/B Helal.TTF");
 }
 
+@import url('https://v1.fontapi.ir/css/Sahel');
 .myfont {
-    font-family: myFont;
-    font-size: xx-large;
+    font-family: 'Sahel', sans-serif;
 }
 
 /* @extend display-flex; */

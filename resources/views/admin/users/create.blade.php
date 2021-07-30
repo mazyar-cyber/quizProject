@@ -26,16 +26,29 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label>نام کاربر را بنویسید</label>
-                        <input type="text" name="name" class="form-control" required >
+                        <input type="text" name="name" class="form-control" required>
                         @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
+
                     <div class="form-group">
-                        <label>ایمیل کاربر را بنوسید (نام کاربری)</label>
-                        <input type="email" name="email" class="form-control" required>
-                        @error('email')
+                        <label>شماره تلفن کاربر را بنوسید (نام کاربری)</label>
+                        <input type="number" name="phoneNumber" class="form-control" required>
+                        @error('phoneNumber')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>سطح دسترسی</label>
+                        <select name="is_Teacher" class="form-control">
+                            <option value="0">کاربر عادی</option>
+                            <option value="1">ادمین</option>
+                        </select>
+                        @error('is_Teacher')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>

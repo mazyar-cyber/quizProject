@@ -22,7 +22,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('is_teacher', '0')->get();
+//        $users = User::where('is_teacher', '0')->get();
+        $users = User::all();
         return view('admin.users.index', compact('users'));
     }
 
@@ -44,11 +45,14 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = time() . "a@a.com";
+        $user->phoneNumber = $request->phoneNumber;
+        $user->password = Hash::make($request->password);
+        $user->is_teacher = $request->is_Teacher;
+        $user->save();
+
         \Illuminate\Support\Facades\Session::flash('user-save', "کاربر با موفقیت ایجاد شد");
         return redirect()->back();
     }
@@ -83,7 +87,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->name = $request->name;
-        $user->email = $request->name;
+        $user->email = time() . 'a@a.com';
+        $user->phoneNumber = $request->phoneNumber;
+        $user->is_teacher = $request->is_Teacher;
         $user->password = Hash::make($request->password);
         $user->save();
         \Illuminate\Support\Facades\Session::flash('user-update', "کاربر با موفقیت ویرایش شد");
@@ -105,9 +111,17 @@ class UserController extends Controller
     {
         foreach ($request->checkBoxArray as $id) {
             $t = User::find($id);
-            $t->delete();
+            if ($t->email == Auth::user()->email) {
+                \Illuminate\Support\Facades\Session::flash('cant-delete', "خودتان را نمیتوانید حذف کنید!");
+                return redirect()->back();
+            }
+            if ($t->is_teacher == '0') {
+                $t->delete();
+                \Illuminate\Support\Facades\Session::flash('user-delete', "کاربران انتخاب شده شما با موفقیت حذف شدند!");
+            } else {
+                \Illuminate\Support\Facades\Session::flash('user-not-delete', "کاربران با سطح دسترسی ادمین حذف نمیشوند!");
+            }
         }
-        \Illuminate\Support\Facades\Session::flash('user-delete', "کاربران انتخاب شده شما با موفقیت حذف شدند!");
         return redirect()->back();
     }
 

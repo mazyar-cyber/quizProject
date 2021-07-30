@@ -1,7 +1,11 @@
 @extends('admin.layouts.master')
 @section('context')
     <div align="center">
-
+        @if(\App\Models\SpinnerGuide::latest()->first())
+            <div class="alert alert-warning">
+                {{$g=\App\Models\SpinnerGuide::latest()->first()->description}}
+            </div>
+        @endif
         <div class="alert alert-info"><p>روی دکمه ی SPIN کلیک کنید تا چرخ گردون به حرکت درآید</p>
         </div>
         <br/>
@@ -12,7 +16,7 @@
                         <br/>
                         <br/>
                         <br/>
-                        <img  width="100px" id="spin_button" src="/js/spin/spin_off.png" alt="Spin" title="بچرخ"
+                        <img width="100px" id="spin_button" src="/js/spin/spin_off.png" alt="Spin" title="بچرخ"
                              onClick="startSpin();"/>
                         <br/><br/>
                         &nbsp;&nbsp;<a href="#" title="دوباره" onClick="resetWheel(); return false;">Play Again</a><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset)

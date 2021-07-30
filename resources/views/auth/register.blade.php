@@ -5,11 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ثبت نام</title>
-
     <!-- Font Icon -->
     <link rel="stylesheet" href="loginAndRegister/fonts/material-icon/css/material-design-iconic-font.min.css">
 
-    <!-- Main css -->
+    {{--    font cdn--}}
+    <link rel="preconnect" href="//fdn.fontcdn.ir">
+    <link rel="preconnect" href="//v1.fontapi.ir">
+    <link href="https://v1.fontapi.ir/css/Sahel" rel="stylesheet">
+    <style>@import url('https://v1.fontapi.ir/css/Sahel');</style>
+    <style>
+        .myfont {
+            font-family: 'Sahel', sans-serif;
+        }
+    </style>
+
+
+    {{--    font cdn--}}
+
+
+<!-- Main css -->
     <link rel="stylesheet" href="loginAndRegister/css/style.css">
     {{--    bootstrap cdn--}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
@@ -27,7 +41,7 @@
         <div class="container">
             <div class="signup-content">
                 <div class="signup-form">
-                    <h2 class="form-title myfont" style="font-size: xx-large">ثبت نام</h2>
+                    <h2 class="form-title myfont" style="font-size: xx-large;font-family: Sahel">ثبت نام</h2>
                     <form method="POST" action="{{ route('register') }}" class="register-form" id="register-form">
                         @csrf
                         <div class="form-group">
@@ -42,8 +56,10 @@
 
                         <div class="form-group">
                             <label for="phoneNumber"><i class="zmdi zmdi-phone"></i></label>
-                            <input type="number" class="@error('phoneNumber') is-invalid @enderror" name="phoneNumber" id="email"
-                                   placeholder="شماره تلفن همراه شما،مثال: 09120000000" value="{{ old('phoneNumber') }}" required autocomplete="phoneNumber"/>
+                            <input type="number" class="@error('phoneNumber') is-invalid @enderror" name="phoneNumber"
+                                   id="email"
+                                   placeholder="شماره تلفن همراه شما،مثال: 09120000000" value="{{ old('phoneNumber') }}"
+                                   required autocomplete="phoneNumber"/>
                             @error('phoneNumber')
                             <span class="form-control bg bg-danger"><strong>{{ $message }}</strong></span>
                             @enderror
@@ -70,7 +86,7 @@
                 </div>
                 <div class="signup-image">
                     <figure><img src="loginAndRegister/images/signup-image.jpg" alt="sing up image"></figure>
-                    <a href="/login" class="signup-image-link myfont">عضو هستید؟؟</a>
+                    <a href="/login" class="signup-image-link myfont" style="font-family: Sahel">عضو هستید؟؟</a>
                 </div>
             </div>
         </div>

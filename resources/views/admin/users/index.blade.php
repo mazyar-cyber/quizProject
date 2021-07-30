@@ -28,24 +28,25 @@
                 <div class="box-header">
                     <h2 class="box-title">کاربران</h2>
 
-                    <div class="box-tools" id="app">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control pull-right" placeholder="جستجو"
-                                   v-model="searchBox">
-
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default" @click.prevent="getData()"><i
-                                        class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
                     <br><br>
                     @if (\Illuminate\Support\Facades\Session::has('user-delete'))
                         <div class="alert alert-success">
                             {{session('user-delete')}}
                         </div>
                     @endif
+
+                    @if (\Illuminate\Support\Facades\Session::has('cant-delete'))
+                        <div class="alert alert-danger">
+                            {{session('cant-delete')}}
+                        </div>
+                    @endif
+
+                    @if (\Illuminate\Support\Facades\Session::has('user-not-delete'))
+                        <div class="alert alert-danger">
+                            {{session('user-not-delete')}}
+                        </div>
+                    @endif
+
                     <a class="btn btn-app pull-left" href="{{route('user.create')}}">
                         <i class="fa fa-plus"></i> جدید
                     </a>
@@ -65,7 +66,8 @@
                             <tr>
                                 <th><input type="checkbox" name="checkBoxArray" id="option3"></th>
                                 <th> نام</th>
-                                <th>(نام کاربری)ایمیل</th>
+                                <th>(نام کاربری)تلفن</th>
+                                <th>سطح دسترسی</th>
                                 <th> تاریخ ایجاد</th>
                                 <th> تاریخ ویرایش</th>
                                 <th> ویرایش</th>
@@ -77,8 +79,14 @@
                                                value="{{$user->id}}"></td>
 
                                     <td>{!! $user->name !!}</td>
-                                    <td>{{$user->email}}</td>
-
+                                    <td>{{$user->phoneNumber}}</td>
+                                    <td>
+                                        @if($user->is_teacher==0)
+                                            <span class="bg bg-yellow">کاربر عادی</span>
+                                        @else
+                                            <span class="bg bg-info">ادمین</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         {{\Hekmatinasser\Verta\Verta::today($user->created_at) }}
                                     </td>
@@ -88,8 +96,10 @@
                                     </td>
 
                                     <td>
-                                        <a href="user/{{$user->id}}/edit"
-                                           class="btn btn-instagram">ویرایش</a>
+                                        @if($user->email!=\Illuminate\Support\Facades\Auth::user()->email)
+                                            <a href="user/{{$user->id}}/edit"
+                                               class="btn btn-instagram">ویرایش</a>
+                                        @endif
                                     </td>
 
                                 </tr>
